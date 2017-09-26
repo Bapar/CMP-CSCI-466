@@ -1,0 +1,63 @@
+
+html{
+	background-image: url("background.png");
+	background-size: cover;
+}
+
+#title{
+	margin: 5px;
+	font-size: 52px;
+	text-align: center;
+	font-family: Six Caps, Sans-Sarif;
+}
+#tagline{
+	margin: 5px;
+	font-size: 30px;
+	text-align: center;
+	font-family: Six Caps, Sans-Sarif;
+}
+#main{
+	background-color: white;
+	height: 90%;
+	width: 80%;
+	margin-left: 10%;
+	opacity: 0.9;
+}
+#mainText{
+	font-weight: bold;
+	font-size: 20px;
+	padding-top: 20px;
+}
+#cTime{
+	background-color: #282828 ;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 300px;
+	margin-left: 10px;
+}
+#text1{
+	font-weight: bold;
+	font-size: 20px;
+	color: white;
+	opacity: 1.0;
+}
+#footer{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	padding: 1px;
+	background-color: #efefef;
+	text-align: center;
+}
+.indent{
+	padding-left: 8px;
+}
+#social{
+	margin-left: 15px;
+}
