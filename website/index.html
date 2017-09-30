@@ -28,23 +28,24 @@
 					
 					<div class="supply">
 						<div class="supply-background"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Duchy.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Chapel.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Copper.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Council_Room.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Curse.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Duchy.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Estate.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Festival.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Gardens.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Gold.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Laboratory.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Market.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Province.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Silver.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Village.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Witch.jpg');" data-value="100"></div>
+						<div class="card" id = "estate" style="background-image: url('assets/cards/200px-Estate.jpg');" data-value="100"></div>
+						<div class="card" id = "duchy" style="background-image: url('assets/cards/200px-Duchy.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom0" style="background-image: url('assets/cards/200px-Chapel.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom1" style="background-image: url('assets/cards/200px-Council_Room.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom2" style="background-image: url('assets/cards/200px-Festival.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom3" style="background-image: url('assets/cards/200px-Gardens.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom4" style="background-image: url('assets/cards/200px-Laboratory.jpg');" data-value="100"></div>
+						<div class="card" id = "copper" style="background-image: url('assets/cards/200px-Copper.jpg');" data-value="100"></div>
+						<div class="card" id = "silver" style="background-image: url('assets/cards/200px-Silver.jpg');" data-value="100"></div>
+						<div class="card" id = "province" style="background-image: url('assets/cards/200px-Province.jpg');" data-value="100"></div>
+						<div class="card" id = "curse" style="background-image: url('assets/cards/200px-Curse.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom5" style="background-image: url('assets/cards/200px-Market.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom6" style="background-image: url('assets/cards/200px-Laboratory.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom7" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom8" style="background-image: url('assets/cards/200px-Village.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom9" style="background-image: url('assets/cards/200px-Witch.jpg');" data-value="100"></div>
+						<div class="card" id = "gold" style="background-image: url('assets/cards/200px-Gold.jpg');" data-value="100"></div>
+						<div class="card" id = "trash" style="background-image: url('assets/cards/200px-Trash-new.jpg');" data-value="100"></div>
 					</div>
 
 					<div class="action">
@@ -55,13 +56,13 @@
 						</div>
 
 						<div class="info">
-							<p><span class="t">Actions:</span> <span class="number">10</span></p>
-							<p><span class="t">Buys:</span> <span class="number">1</span></p>
-							<p><span class="t">Money:</span> <span class="number">$900</span></p>
+							<p><span class="t">Actions:</span> <span class="number" id="actionCount">1</span></p>
+							<p><span class="t">Buys:</span> <span class="number" id="buyCount">1</span></p>
+							<p><span class="t">Coins:</span> <span class="number" id="coinCount">$0</span></p>
 						</div>
 
 						<div class="button">
-							<a href="#" class="btn">End Turn</a>
+							<a href="#" class="btn" id = "endTurnButton">End Turn</a>
 						</div>
 
 						<div class="card trash" style="background-image: url('assets/cards/200px-Trash-new.jpg');" >
@@ -71,13 +72,13 @@
 						</div>
 					</div>
 
-					<div class="hand">
+					<div class="hand" id = "hand">
+<!--						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
 						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
 						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
 						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
 						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
-						<div class="card" style="background-image: url('assets/cards/200px-Smithy.jpg');" data-value="100"></div>
-					</div>
+-->					</div>
 
 				</div>
 			</main>
