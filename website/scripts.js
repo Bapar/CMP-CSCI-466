@@ -16,8 +16,127 @@ $(document).ready(function(){
 
 function createGame() {
 	var game = {
-		supply: []
+		players: 3
+		
 	};
+
+	var supply = {
+		kingdomCards: [
+			chapel = {
+				name: "chapel",
+				type: "action",
+				image: "url('assets/cards/200px-Chapel.jpg')",
+				count: 10,
+				cost: 2
+			}, 
+			councilRoom = {
+				name: "council room",
+				type: "action",
+				image: "url('assets/cards/200px-Council_Room.jpg')",
+				count: 10,
+				cost: 5
+			}, 
+			festival = {
+				name: "festival",
+				type: "action",
+				image: "url('assets/cards/200px-Festival.jpg')",
+				count: 10,
+				cost: 5
+			}, 
+			gardens = {
+				name: "gardens",
+				type: "victory",
+				image: "url('assets/cards/200px-Gardens.jpg')",
+				count: 12,
+				cost: 4
+			}, 
+			laboratory = {
+				name: "laboratory",
+				type: "action",
+				image: "url('assets/cards/200px-Laboratory.jpg')",
+				count: 10,
+				cost: 5
+			}, 
+			market = {
+				name: "market",
+				type: "action",
+				image: "url('assets/cards/200px-Market.jpg')",
+				count: 10,
+				cost: 5
+			}, 
+			smithy = {
+				name: "smithy",
+				type: "action",
+				image: "url('assets/cards/200px-Smithy.jpg')",
+				count: 10,
+				cost: 4
+			}, 
+			village = {
+				name: "village",
+				type: "action",
+				image: "url('assets/cards/200px-Village.jpg')",
+				count: 10,
+				cost: 3
+			},
+			witch = {
+				name: "witch",
+				type: "action-attack",
+				image:"url('assets/cards/200px-Witch.jpg')",
+				count: 10,
+				cost: 5
+			}, 
+			woodcutter = {
+				name: "woodcutter",
+				type: "action",
+				image: "url('assets/cards/200px-Woodcutter.jpg')",
+				count: 10,
+				cost: 3
+			}, 
+			workshop = {
+				name: "workshop",
+				type: "action",
+				image: "url('assets/cards/200px-Workshop.jpg')",
+				count: 10,
+				cost: 3
+			}],
+		copper: 39,
+		silver: 40,
+		gold: 30,
+		estate: 12,
+		duchy: 12,
+		province: 12,
+		curse: 20
+	};
+
+	// change quantity of cards depending on number of players
+	if (game.players === 2) {
+		supply.estate = 8;
+		supply.duchy = 8;
+		supply.province = 8;
+		supply.curse = 10;
+		supply.copper = 46;
+		supply.kingdomCards[gardens.count] = 8;
+	}
+	if (game.players === 4) {
+		supply.curse = 30;
+		supply.copper = 32;
+	}
+
+	shuffle(supply.kingdomCards);
+	supply.kingdomCards.pop();
+
+	refreshSupply(supply);
+
+	/* add copper, silver, and gold to supply
+	for (i = 0; i < 60; i++) {
+		game.supply.push("copper");
+		if (i < 40) 
+			game.supply.push("silver");
+			if (i < 30) 
+				game.supply.push("gold");
+	}*/
+
+	// add estates to supply
 }
 
 function createPlayer(){
@@ -27,6 +146,7 @@ function createPlayer(){
 		actions: 1,
 		buys: 1,
 		coins: 0,
+		trashCards: 0,
 		deck: ["copper", "copper", "copper", "copper", "copper", "copper", "copper", "estate", "estate", "estate"],
 		hand: [],
 		playedCards: [],
@@ -38,17 +158,25 @@ function createPlayer(){
 	//draw 5 new cards
 	draw(player, 5);
 
-	renderHand(player);
+	refreshHand(player);
 
 	return player;
 }
 
-// Render the players hand on screen
-function renderHand(player) {
+// Refresh supply on screen
+function refreshSupply(supply) {
+	for (i = 0; i < 10; i++){
+		kingdomNum = "kingdom" + i;
+		currentCard = supply.kingdomCards[i];
+		document.getElementById(kingdomNum).style.backgroundImage = currentCard.image;
+	}
+}
+
+// Refresh the players hand on screen
+function refreshHand(player) {
 	for (i = 0; i < 5; i++){
 		handNum = "hand" + i;
 		document.getElementById(handNum).style.backgroundImage = getImage(player.hand[i]);
-		//alert(player.hand[0]);
 	}
 }
 
@@ -106,7 +234,7 @@ function endTurn(player){
 	return player;
 }
 
-//--------------------------------------------------------
+//---------------------------------Get Card Info-----------------------------------------
 function getImage(card) {
 	 switch (card) {
          case "copper":
@@ -145,6 +273,9 @@ function getImage(card) {
          case "market":
              return "url('assets/cards/200px-Market.jpg')";
              break;
+         case "smithy":
+         	 return "url('assets/cards/200px-Smithy.jpg')";
+         	 break;
 		 case "village":
              return "url('assets/cards/200px-Village.jpg')";
              break;
@@ -167,3 +298,4 @@ function getImage(card) {
          	return "url('assets/cards/200px-Cardback.jpg')";
 	 }
 }
+
