@@ -99,27 +99,74 @@ function createGame() {
 				count: 10,
 				cost: 3
 			}],
-		copper: 39,
-		silver: 40,
-		gold: 30,
-		estate: 12,
-		duchy: 12,
-		province: 12,
-		curse: 20
-	};
+		coins: [
+			copper = {
+				name: "copper",
+				image: "url('assets/cards/200px-Copper.jpg')",
+				points: 1,
+				cost: 0,
+				count: 39
+			},
+			silver = {
+				name: "silver",
+				image: "url('assets/cards/200px-Silver.jpg')",
+				points: 2,
+				cost: 3,
+				count: 40
+			},
+			gold = {
+				name: "gold",
+				image: "url('assets/cards/200px-Gold.jpg')",
+				points: 3,
+				cost: 6,
+				count: 30
+			}
+		],
+		victory: [
+			estate = {
+				name: "estate",
+				image: "url('assets/cards/200px-Estate.jpg')",
+				points: 1,
+				cost: 2,
+				count: 12
+			},
+			duchy = {
+				name: "duchy",
+				image: "url('assets/cards/200px-Duchy.jpg')",
+				points: 3,
+				cost: 5,
+				count: 12
+			},
+			province = {
+				name: "province",
+				image: "url('assets/cards/200px-Province.jpg')",
+				points: 6,
+				cost: 8,
+				count: 12 
+			},
+		],
+		
+		curse: [
+			curse = {
+				name: "curse",
+				image: "url('assets/cards/200px-Curse.jpg')",
+				points: -1,
+				count: 20
+			}] 
+		};
 
 	// change quantity of cards depending on number of players
 	if (game.players === 2) {
-		supply.estate = 8;
-		supply.duchy = 8;
-		supply.province = 8;
-		supply.curse = 10;
-		supply.copper = 46;
+		supply.victory[estate.count] = 8;
+		supply.victory[duchy.count] = 8;
+		supply.victory[province.count] = 8;
+		supply.curse[curse.count] = 10;
+		supply.coins[copper.count] = 46;
 		supply.kingdomCards[gardens.count] = 8;
 	}
 	if (game.players === 4) {
-		supply.curse = 30;
-		supply.copper = 32;
+		supply.curse[curse.count] = 30;
+		supply.coins[copper.count] = 32;
 	}
 
 	shuffle(supply.kingdomCards);
@@ -234,7 +281,7 @@ function endTurn(player){
 	return player;
 }
 
-//---------------------------------Get Card Info-----------------------------------------
+//---------------------------------Get Card Info-----------------------------------------<<to be removed>>
 function getImage(card) {
 	 switch (card) {
          case "copper":
