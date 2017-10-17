@@ -281,7 +281,7 @@ function endTurn(player){
 	return player;
 }
 
-//---------------------------------Get Card Info-----------------------------------------<<to be removed>>
+//---------------------------------Don't use this-----------------------------------------<<to be removed>>
 function getImage(card) {
 	 switch (card) {
          case "copper":
