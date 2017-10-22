@@ -7,189 +7,94 @@ jQuery(function ($) {
 //initial setup
 $(document).ready(function(){
 	var game = createGame();
-	var player = createPlayer();
+	var player = createPlayer(game);
 	$( "#endTurnButton" ).click(function() {
 		endTurn(player);
 	});
-	
+	$("#hand0").click(function() {
+		$("#hand0").fadeOut();
+	});
+	$("#hand1").click(function() {
+		$("#hand1").fadeOut();
+	});
+	$("#hand2").click(function() {
+		$("#hand2").fadeOut();
+	});
+	$("#hand3").click(function() {
+		$("#hand3").fadeOut();
+	});
+	$("#hand4").click(function() {
+		$("#hand4").fadeOut();
+	});
 }); 
 
 function createGame() {
-	var game = {
+	game = {
 		players: 3
 		
 	};
 
-	var supply = {
-		kingdomCards: [
-			chapel = {
-				name: "chapel",
-				type: "action",
-				image: "url('assets/cards/200px-Chapel.jpg')",
-				count: 10,
-				cost: 2
-			}, 
-			councilRoom = {
-				name: "council room",
-				type: "action",
-				image: "url('assets/cards/200px-Council_Room.jpg')",
-				count: 10,
-				cost: 5
-			}, 
-			festival = {
-				name: "festival",
-				type: "action",
-				image: "url('assets/cards/200px-Festival.jpg')",
-				count: 10,
-				cost: 5
-			}, 
-			gardens = {
-				name: "gardens",
-				type: "victory",
-				image: "url('assets/cards/200px-Gardens.jpg')",
-				count: 12,
-				cost: 4
-			}, 
-			laboratory = {
-				name: "laboratory",
-				type: "action",
-				image: "url('assets/cards/200px-Laboratory.jpg')",
-				count: 10,
-				cost: 5
-			}, 
-			market = {
-				name: "market",
-				type: "action",
-				image: "url('assets/cards/200px-Market.jpg')",
-				count: 10,
-				cost: 5
-			}, 
-			smithy = {
-				name: "smithy",
-				type: "action",
-				image: "url('assets/cards/200px-Smithy.jpg')",
-				count: 10,
-				cost: 4
-			}, 
-			village = {
-				name: "village",
-				type: "action",
-				image: "url('assets/cards/200px-Village.jpg')",
-				count: 10,
-				cost: 3
-			},
-			witch = {
-				name: "witch",
-				type: "action-attack",
-				image:"url('assets/cards/200px-Witch.jpg')",
-				count: 10,
-				cost: 5
-			}, 
-			woodcutter = {
-				name: "woodcutter",
-				type: "action",
-				image: "url('assets/cards/200px-Woodcutter.jpg')",
-				count: 10,
-				cost: 3
-			}, 
-			workshop = {
-				name: "workshop",
-				type: "action",
-				image: "url('assets/cards/200px-Workshop.jpg')",
-				count: 10,
-				cost: 3
-			}],
-		coins: [
-			copper = {
-				name: "copper",
-				image: "url('assets/cards/200px-Copper.jpg')",
-				points: 1,
-				cost: 0,
-				count: 39
-			},
-			silver = {
-				name: "silver",
-				image: "url('assets/cards/200px-Silver.jpg')",
-				points: 2,
-				cost: 3,
-				count: 40
-			},
-			gold = {
-				name: "gold",
-				image: "url('assets/cards/200px-Gold.jpg')",
-				points: 3,
-				cost: 6,
-				count: 30
-			}
-		],
-		victory: [
-			estate = {
-				name: "estate",
-				image: "url('assets/cards/200px-Estate.jpg')",
-				points: 1,
-				cost: 2,
-				count: 12
-			},
-			duchy = {
-				name: "duchy",
-				image: "url('assets/cards/200px-Duchy.jpg')",
-				points: 3,
-				cost: 5,
-				count: 12
-			},
-			province = {
-				name: "province",
-				image: "url('assets/cards/200px-Province.jpg')",
-				points: 6,
-				cost: 8,
-				count: 12 
-			},
-		],
+	supply = {
+		kingdomCards: [	"chapel", "council_room", "festival", "gardens", "laboratory", "market", "smithy",
+					 "village", "witch", "woodcutter", "workshop" ],
+
+		coins: [ "copper", "silver", "gold" ],
 		
-		curse: [
-			curse = {
-				name: "curse",
-				image: "url('assets/cards/200px-Curse.jpg')",
-				points: -1,
-				count: 20
-			}] 
+		victory: [ "estate", "duchy", "province" ],
+			
+		curse: [ "curse" ],
+
 		};
+	
+	// number of cards in each deck of supply
+	supplyCount = {
+		chapel: 10,
+		council_room: 10,
+		festival: 10,
+		gardens: 12,
+		laboratory: 10,
+		market: 10,
+		smithy: 10,
+		village: 10,
+		witch: 10,
+		woodcutter: 10,
+		workshop: 10,
+		copper: 39,
+		silver: 40,
+		gold: 30,
+		estate: 12,
+		duchy: 12,
+		province: 12,
+		curse: 20
+	};
 
 	// change quantity of cards depending on number of players
 	if (game.players === 2) {
-		supply.victory[estate.count] = 8;
-		supply.victory[duchy.count] = 8;
-		supply.victory[province.count] = 8;
-		supply.curse[curse.count] = 10;
-		supply.coins[copper.count] = 46;
-		supply.kingdomCards[gardens.count] = 8;
+		supplyCount.chapel = 8;
+		supplyCount.duchy = 8;
+		supplyCount.province = 8;
+		supplyCount.curse = 10;
+		supplyCount.copper = 46;
+		supplyCount.gardens = 8;
 	}
 	if (game.players === 4) {
-		supply.curse[curse.count] = 30;
-		supply.coins[copper.count] = 32;
+		supplyCount.curse = 30;
+		supplyCount.copper = 32;
 	}
 
 	shuffle(supply.kingdomCards);
 	supply.kingdomCards.pop();
 
-	refreshSupply(supply);
+	refreshSupply();
 
-	/* add copper, silver, and gold to supply
-	for (i = 0; i < 60; i++) {
-		game.supply.push("copper");
-		if (i < 40) 
-			game.supply.push("silver");
-			if (i < 30) 
-				game.supply.push("gold");
-	}*/
+	return supply;
 
-	// add estates to supply
 }
 
-function createPlayer(){
+function createPlayer(supply){
 
 	//player object
-	var player = {
+	 var player = {
 		actions: 1,
 		buys: 1,
 		coins: 0,
@@ -211,19 +116,26 @@ function createPlayer(){
 }
 
 // Refresh supply on screen
-function refreshSupply(supply) {
+function refreshSupply() {
+	var kingdomNum = "";
+	var currentCard = {};
+
 	for (i = 0; i < 10; i++){
 		kingdomNum = "kingdom" + i;
-		currentCard = supply.kingdomCards[i];
+		currentCard = getCard(supply.kingdomCards[i]);
 		document.getElementById(kingdomNum).style.backgroundImage = currentCard.image;
 	}
 }
 
 // Refresh the players hand on screen
 function refreshHand(player) {
+	var handNum = "";
+	var currentCard = {};
+	
 	for (i = 0; i < 5; i++){
 		handNum = "hand" + i;
-		document.getElementById(handNum).style.backgroundImage = getImage(player.hand[i]);
+		currentCard = getCard(player.hand[i]);
+		document.getElementById(handNum).style.backgroundImage = currentCard.image;
 	}
 }
 
@@ -281,68 +193,138 @@ function endTurn(player){
 	return player;
 }
 
-//---------------------------------Don't use this-----------------------------------------<<to be removed>>
-function getImage(card) {
-	 switch (card) {
-         case "copper":
-             return "url('assets/cards/200px-Copper.jpg')";
-             break;
-         case "silver":
-             return "url('assets/cards/200px-Silver.jpg')";
-             break;
-         case "gold":
-             return "url('assets/cards/200px-Gold.jpg')";
-             break;
-         case "estate":
-             return "url('assets/cards/200px-Estate.jpg')";
-             break;
-		 case "duchy":
-             return "url('assets/cards/200px-Duchy.jpg')";
-             break;
-         case "province":
-             return "url('assets/cards/200px-Province.jpg')";
-             break;
-         case "chapel":
-             return "url('assets/cards/200px-Chapel.jpg')";
-             break;
-         case "council room":
-             return "url('assets/cards/200px-Council_Room.jpg')";
-             break;
-         case "festival":
-             return "url('assets/cards/200px-Festival.jpg')";
-             break;
-         case "gardens":
-             return "url('assets/cards/200px-Gardens.jpg')";
-             break;
-         case "laboratory":
-             return "url('assets/cards/200px-Laboratory.jpg')";
-             break;
-         case "market":
-             return "url('assets/cards/200px-Market.jpg')";
-             break;
-         case "smithy":
-         	 return "url('assets/cards/200px-Smithy.jpg')";
-         	 break;
-		 case "village":
-             return "url('assets/cards/200px-Village.jpg')";
-             break;
-         case "witch":
-             return "url('assets/cards/200px-Witch.jpg')";
-             break;
-         case "woodcutter":
-             return "url('assets/cards/200px-Woodcutter.jpg')";
-             break;
-         case "workshop":
-             return "url('assets/cards/200px-Workshop.jpg')";
-             break;
-         case "curse":
-             return "url('assets/cards/200px-Curse.jpg')";
-             break;
-         case "trash":
-             return "url('assets/cards/200px-Trash-new.jpg')";
-             break;
-         default:
-         	return "url('assets/cards/200px-Cardback.jpg')";
-	 }
+// returns the card as an object
+function getCard (card) {
+	var theCard = {};
+	switch (card){
+		case "copper":
+			theCard.image = "url('assets/cards/200px-Copper.jpg')";
+			theCard.type = "coin";
+			theCard.points = 1;
+			theCard.cost = 0;
+			return theCard;
+			break;
+		case "silver":
+			theCard.image = "url('assets/cards/200px-Silver.jpg')";
+			theCard.type = "coin";
+			theCard.points = 2;
+			theCard.cost = 3;
+			return theCard;
+			break;
+		case "gold":
+			theCard.image = "url('assets/cards/200px-Gold.jpg')";
+			theCard.type = "coin";
+			theCard.points = 3;
+			theCard.cost = 6;
+			return theCard;
+			break;
+		case "market":
+			theCard.image = "url('assets/cards/200px-Market.jpg')";
+			theCard.type = "action";
+			theCard.action = "+1 card >> +1 action >> +1 buy >> +1 coin";
+			theCard.cost = 5;
+			return theCard;
+			break;
+		case "chapel":
+			theCard.image = "url('assets/cards/200px-Chapel.jpg')";
+			theCard.type = "action";
+			theCard.action = "trash up to 4 cards from your hand";
+			theCard.cost = 2;
+			return theCard;
+			break;
+		case "council_room":
+			theCard.image = "url('assets/cards/200px-Council_Room.jpg')";
+			theCard.type = "action";
+			theCard.action = "+4 cards >> +1 buy << each other player draws a card";
+			theCard.cost = 5;
+			return theCard;
+			break;
+		case "festival":
+			theCard.image = "url('assets/cards/200px-Festival.jpg')";
+			theCard.type = "action";
+			theCard.action = "+2 actions >> +1 buy >> +2 coins";
+			theCard.cost = 5;
+			return theCard;
+			break;
+		case "gardens":
+			theCard.image = "url('assets/cards/200px-Gardens.jpg')";
+			theCard.type = "victory";
+			theCard.action = "+1 victory per ten cards you have (round down)";
+			theCard.cost = 4;
+			return theCard;
+			break;
+		case "laboratory":
+			theCard.image = "url('assets/cards/200px-Laboratory.jpg')";
+			theCard.type = "action";
+			theCard.action = "+2 cards >> +1 action";
+			theCard.cost = 5;
+			return theCard;
+			break;
+		case "smithy":
+			theCard.image = "url('assets/cards/200px-Smithy.jpg')";
+			theCard.type = "action";
+			theCard.action = "+3 cards";
+			theCard.cost = 4;
+			return theCard;
+			break;
+		case "village":
+			theCard.image = "url('assets/cards/200px-Village.jpg')";
+			theCard.type = "action";
+			theCard.action = "+1 card >> +2 actions";
+			theCard.cost = 3;
+			return theCard;
+			break;
+		case "witch":
+			theCard.image = "url('assets/cards/200px-Witch.jpg')";
+			theCard.type = "action";
+			theCard.action = "+2 cards >> Each other player gains a curse";
+			theCard.cost = 4;
+			return theCard;
+			break;
+		case "woodcutter":
+			theCard.image = "url('assets/cards/200px-Woodcutter.jpg')";
+			theCard.type = "action";
+			theCard.action = "+1 buy >> +2 coins";
+			theCard.cost = 3;
+			return theCard;
+			break;
+		case "workshop":
+			theCard.image = "url('assets/cards/200px-Workshop.jpg')";
+			theCard.type = "action";
+			theCard.action = "gain a card costing up to 4 coins";
+			theCard.cost = 3;
+			return theCard;
+			break;
+		case "estate":
+			theCard.image = "url('assets/cards/200px-Estate.jpg')";
+			theCard.type = "victory";
+			theCard.points = 1;
+			theCard.cost = 2;
+			return theCard;
+			break;
+		case "duchy":
+			theCard.image = "url('assets/cards/200px-Duchy.jpg')";
+			theCard.type = "Victory";
+			theCard.points = 3;
+			theCard.cost = 5;
+			return theCard;
+			break;
+		case "province":
+			theCard.image = "url('assets/cards/200px-Province.jpg')";
+			theCard.type = "victory";
+			theCard.points = 6;
+			theCard.cost = 8;
+			return theCard;
+			break;
+		case "curse":
+			theCard.image = "url('assets/cards/200px-Curse.jpg')";
+			theCard.type = "curse";
+			theCard.points = -1;
+			theCard.cost = 0;
+			return theCard;
+			break;
+		default:
+			theCard.image = "url('assets/cards/200px-Cardback.jpg')"
+			return theCard;
+	}
 }
-
