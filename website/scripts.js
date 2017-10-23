@@ -8,23 +8,143 @@ jQuery(function ($) {
 $(document).ready(function(){
 	var game = createGame();
 	var player = createPlayer(game);
+	var cardsPlayed = []; // this is for the numbers in the hand array that have bean played
+	var cardPlayable = false;
+
 	$( "#endTurnButton" ).click(function() {
 		endTurn(player);
 	});
+
+	// Hand____
 	$("#hand0").click(function() {
-		$("#hand0").fadeOut();
+		card = getCard(player.hand[0]);
+		cardPlayable = playCard(card, player);
+		
+		if (cardPlayable) {
+			player.playedCards.push(player.hand[0]);
+			cardsPlayed.push(0);
+			$("#hand0").fadeOut("fast");
+		}
+		
+		
 	});
 	$("#hand1").click(function() {
-		$("#hand1").fadeOut();
+		card = getCard(player.hand[1]);
+		cardPlayable = playCard(card, player);
+		
+		if (cardPlayable) {
+			player.playedCards.push(player.hand[1]);
+			cardsPlayed.push(1);
+			$("#hand1").fadeOut("fast");
+		}
+		
+		
 	});
 	$("#hand2").click(function() {
-		$("#hand2").fadeOut();
+		card = getCard(player.hand[2]);
+		cardPlayable = playCard(card, player);
+		
+		if (cardPlayable) {
+			player.playedCards.push(player.hand[2]);
+			cardsPlayed.push(2);
+			$("#hand2").fadeOut("fast");
+		}
+		
+		
 	});
 	$("#hand3").click(function() {
-		$("#hand3").fadeOut();
+		card = getCard(player.hand[3]);
+		cardPlayable = playCard(card, player);
+		
+		if (cardPlayable) {
+			player.playedCards.push(player.hand[3]);
+			cardsPlayed.push(3);
+			$("#hand3").fadeOut("fast");
+		}
+		
+		
 	});
 	$("#hand4").click(function() {
-		$("#hand4").fadeOut();
+		card = getCard(player.hand[4]);
+		cardPlayable = playCard(card, player);
+		
+		if (cardPlayable) {
+			player.playedCards.push(player.hand[4]);
+			cardsPlayed.push(4);
+			$("#hand4").fadeOut("fast");
+		}
+		
+		
+	});
+
+	//Supply____
+	$("#estate").click(function() {
+		$("#estate").animate({opacity: '0.0'}, "fast");
+		$("#estate").animate({opacity: '1.0'});
+	});
+	$("#duchy").click(function() {
+		$("#duchy").animate({opacity: '0.0'}, "fast");
+		$("#duchy").animate({opacity: '1.0'});
+	});
+	$("#kingdom0").click(function() {
+		$("#kingdom0").animate({opacity: '0.0'}, "fast");
+		$("#kingdom0").animate({opacity: '1.0'});
+	});
+	$("#kingdom1").click(function() {
+		$("#kingdom1").animate({opacity: '0.0'}, "fast");
+		$("#kingdom1").animate({opacity: '1.0'});
+	});
+	$("#kingdom2").click(function() {
+		$("#kingdom2").animate({opacity: '0.0'}, "fast");
+		$("#kingdom2").animate({opacity: '1.0'});
+	});
+	$("#kingdom3").click(function() {
+		$("#kingdom3").animate({opacity: '0.0'}, "fast");
+		$("#kingdom3").animate({opacity: '1.0'});
+	});
+	$("#kingdom4").click(function() {
+		$("#kingdom4").animate({opacity: '0.0'}, "fast");
+		$("#kingdom4").animate({opacity: '1.0'});
+	});
+	$("#copper").click(function() {
+		$("#copper").animate({opacity: '0.0'}, "fast");
+		$("#copper").animate({opacity: '1.0'});
+	});
+	$("#silver").click(function() {
+		$("#silver").animate({opacity: '0.0'}, "fast");
+		$("#silver").animate({opacity: '1.0'});
+	});
+	$("#province").click(function() {
+		$("#province").animate({opacity: '0.0'}, "fast");
+		$("#province").animate({opacity: '1.0'});
+	});
+	$("#curse").click(function() {
+		$("#curse").animate({opacity: '0.0'}, "fast");
+		$("#curse").animate({opacity: '1.0'});
+	});
+	$("#kingdom5").click(function() {
+		$("#kingdom5").animate({opacity: '0.0'}, "fast");
+		$("#kingdom5").animate({opacity: '1.0'});
+	});
+	$("#kingdom6").click(function() {
+		$("#kingdom6").animate({opacity: '0.0'}, "fast");
+		$("#kingdom6").animate({opacity: '1.0'});
+	});
+	$("#kingdom7").click(function() {
+		$("#kingdom7").animate({opacity: '0.0'}, "fast");
+		$("#kingdom7").animate({opacity: '1.0'});
+	});
+	$("#kingdom8").click(function() {
+		$("#kingdom8").animate({opacity: '0.0'}, "fast");
+		$("#kingdom8").animate({opacity: '1.0'});
+	});
+	$("#kingdom9").click(function() {
+		$("#kingdom9").animate({opacity: '0.0'}, "fast");
+		$("#kingdom9").animate({opacity: '1.0'});
+	});
+	$("#gold").click(function() {
+		$("#gold").animate({opacity: '0.0'}, "fast");
+		$("#gold").animate({opacity: '1.0'});
 	});
 }); 
 
@@ -139,6 +259,13 @@ function refreshHand(player) {
 	}
 }
 
+// Refresh the players stats on screen
+function refreshStats(player) {
+	document.getElementById("actionCount").innerHTML = player.actions;
+	document.getElementById("buyCount").innerHTML = player.buys;
+	document.getElementById("coinCount").innerHTML = ("$" + player.coins);
+}
+
 //Fisher-Yates suffling algorith from
 //https://bost.ocks.org/mike/shuffle/
 function shuffle(array) {
@@ -172,6 +299,21 @@ function draw(player, count){
 	}
 	//console.log(player.hand);
 	return player;
+}
+
+function playCard (card, player) {
+	if (card.type === "coin") {
+		player.coins += card.points;
+		refreshStats(player);
+		return true;
+	}
+	if (card.type === "action"){
+
+	}
+}
+
+function buyCard (card, player) {
+
 }
 
 function endTurn(player){
