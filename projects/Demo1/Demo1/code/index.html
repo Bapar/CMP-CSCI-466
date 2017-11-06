@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<!--Jasmine-->
+<link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-{#.#.#}/jasmine_favicon.png">
+<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-{#.#.#}/jasmine.css">
+
+<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/jasmine.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/jasmine-html.js"></script>
+<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/boot.js"></script>
+
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link type="text/css" rel="stylesheet" href="stylesheet.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,900" rel="stylesheet">
+		<title>CMP Dominion</title>
+	</head>
+
+	<body>
+		<div class="background"></div>
+
+		<div id="game">
+			<div class="title">
+				<div class="container">
+					<a href="#" class="btn left">New Game</a>
+					<div class="title-container">
+						<h1>Dominion</h1>
+						<h6>The Card Game</h6>
+					</div>
+					<a href="#" class="btn right">High Scores</a>
+				</div>
+			</div>
+
+			<main id="game-holder">
+				<div class="container">
+					
+					<div class="supply">
+						<div class="supply-background"></div>
+						<div class="card" id = "estate" style="background-image: url('assets/cards/200px-Estate.jpg');" data-value="100"></div>
+						<div class="card" id = "duchy" style="background-image: url('assets/cards/200px-Duchy.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom0" data-value="100"></div>
+						<div class="card" id = "kingdom1" data-value="100"></div>
+						<div class="card" id = "kingdom2" data-value="100"></div>
+						<div class="card" id = "kingdom3" data-value="100"></div>
+						<div class="card" id = "kingdom4" data-value="100"></div>
+						<div class="card" id = "copper" style="background-image: url('assets/cards/200px-Copper.jpg');" data-value="100"></div>
+						<div class="card" id = "silver" style="background-image: url('assets/cards/200px-Silver.jpg');" data-value="100"></div>
+						<div class="card" id = "province" style="background-image: url('assets/cards/200px-Province.jpg');" data-value="100"></div>
+						<div class="card" id = "curse" style="background-image: url('assets/cards/200px-Curse.jpg');" data-value="100"></div>
+						<div class="card" id = "kingdom5" data-value="100"></div>
+						<div class="card" id = "kingdom6" data-value="100"></div>
+						<div class="card" id = "kingdom7" data-value="100"></div>
+						<div class="card" id = "kingdom8" data-value="100"></div>
+						<div class="card" id = "kingdom9" data-value="100"></div>
+						<div class="card" id = "gold" style="background-image: url('assets/cards/200px-Gold.jpg');" data-value="100"></div>
+						<!--<div class="card" id = "trash" style="background-image: url('assets/cards/200px-Trash-new.jpg');" data-value="100"></div>-->
+					</div>
+
+					<div class="action">
+						<div class="card pile" style="background-image: url('assets/cards/200px-Cardback.jpg');" >
+							<div class="description">
+								<span>Pile</span>
+							</div>
+						</div>
+
+						<div class="info">
+							<p><span class="t">Actions:</span> <span class="number" id="actionCount">1</span></p>
+							<p><span class="t">Buys:</span> <span class="number" id="buyCount">1</span></p>
+							<p><span class="t">Coins:</span> <span class="number" id="coinCount">$0</span></p>
+						</div>
+
+						<div class="button">
+							<a href="#" class="btn" id = "endTurnButton">End Turn</a>
+						</div>
+
+						<div class="card trash" style="background-image: url('assets/cards/200px-Trash-new.jpg');" >
+							<div class="description">
+								<span>Trash</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="hand" id = "hand">
+						<div class="card" id = "hand0" data-value="100"></div>
+						<div class="card" id = "hand1" data-value="100"></div>
+						<div class="card" id = "hand2" data-value="100"></div>
+						<div class="card" id = "hand3" data-value="100"></div>
+						<div class="card" id = "hand4" data-value="100"></div>
+				</div>
+
+				</div>
+			</main>
+		</div>
+
+		<script type='text/javascript' src='assets/js/jquery-3.2.1.min.js'></script>
+		<script type='text/javascript' src='scripts.js'></script>
+	</body>
+</html>

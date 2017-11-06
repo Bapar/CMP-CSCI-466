@@ -1,0 +1,297 @@
+html, body {
+	margin: 0;
+	min-height: 100vh;
+	height: auto;
+	position: relative;
+	font-family: 'Roboto', sans-serif;
+	background: #000;
+}
+
+a {
+	text-decoration: none;
+}
+
+.background {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	background-image: url("assets/images/background.png");
+	background-size: cover;
+	background-position: top center;
+	background-repeat: no-repeat;
+	opacity: 0.35;
+}
+
+#game {
+	position: relative;
+	z-index: 2;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 900px;
+	position: relative;
+}
+
+
+/* TITLE */
+.title{
+	padding: 15px 0;
+	position: relative;
+	margin-bottom: 25px;
+}
+.title .title-container {
+	margin: 0 auto;
+	display: table;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.title h1 {
+	margin: 0;
+	font-size: 55px;
+	letter-spacing: 1px;
+	color: #fff;
+}
+
+.title h6 {
+	font-size: 12px;
+	color: #fff;
+	margin: 0;
+	letter-spacing: 5px;
+	font-weight: 400;
+}
+
+.title .btn {
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #fff;
+	border-radius: 10px;
+	text-align: center;
+	min-width: 190px;
+	border: 2px solid #fff;
+	display: inline-block;
+	padding: 12px 10px;
+	transition: all 0.2s ease;
+}
+
+.title .btn:hover {
+	background: #F78154;
+	border: 2px solid #F78154;
+	color: #fff;
+}
+
+.title .btn.left {
+	position: absolute;
+	left: 0;
+	top: 9px;
+}
+
+.title .btn.right {
+	position: absolute;
+	right: 0;
+	top: 9px;
+}
+
+
+/* GAME */
+#game-holder {
+	width: 100%;
+	position: relative;
+}
+
+.supply {
+	width: 100%;
+	display: table;
+	background: #000;
+	border-radius: 15px;
+	z-index: 2;
+	padding: 10px;
+	margin-bottom: 25px;
+	position: relative;
+}
+
+.supply .supply-background {
+	background-image: url("assets/images/board.jpg");
+	background-position: 50% 50%;
+	background-size: cover!important;
+	background-repeat: no-repeat;
+	opacity: 0.5;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	z-index: 2;
+}
+
+.supply .card {
+	width: 90px;
+	margin: 5px;
+	height: 143px;
+	float: left;
+	z-index: 3;
+	position: relative;
+	background: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	background-size: cover!important;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.supply .card:hover {
+	transform: scale(2);
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+	z-index: 4;
+}
+
+.action {
+	float: left;
+	width: 100%;
+	position: relative;
+	margin-bottom: 25px;
+	display: table;
+	min-height: 185px;
+	z-index: 1;
+}
+
+.action .card {
+	width: 120px;
+	margin: 5px;
+	height: 185px;
+	float: left;
+	z-index: 3;
+	position: relative;
+	background: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	background-size: cover!important;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.action .card.pile {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.action .card .description {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	z-index: 4;
+	background: rgba(0,0,0,0.6);	
+	border-radius: 5px;
+	border: 2px solid #fff;
+	opacity: 0;
+	transition: all 0.2s ease;
+}
+
+.action .card .description span {
+	font-size: 25px;
+	text-align: center;
+	width: 100%;
+	color: #fff;
+	text-transform: uppercase;
+	float: left;
+	letter-spacing: 1px;
+	margin-top: 75px;
+	transition: all 0.2s ease;
+}
+
+.action .card:hover .description {
+	opacity: 1;
+}
+
+.action .card.trash {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.action .info {
+	position: absolute;
+	left: 200px;
+	top: 35px;
+	color: #fff;
+	font-size: 31px;
+}
+
+.action .info p {
+	margin: 0 0 5px 0;
+}
+
+.action .info .t {
+	width: 130px;
+	text-align: right;
+	display: inline-block;
+}
+
+.action .info .number {
+	margin-left: 5px;
+}
+
+.action .button {
+	position: absolute;
+	right: 200px;
+	top: 70px;
+}
+
+.action .button .btn {
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #fff;
+	border-radius: 10px;
+	text-align: center;
+	min-width: 190px;
+	border: 2px solid #fff;
+	display: inline-block;
+	padding: 12px 10px;
+	transition: all 0.2s ease;
+}
+
+.action .button .btn:hover {
+	background: #780116;
+	border: 2px solid #780116;
+	color: #fff;
+}
+
+.hand {
+	width: 100%;
+	display: table;
+	margin-bottom: 50px;
+	position: relative;
+	text-align: center;
+}
+
+.hand .card {
+	width: 120px;
+	margin: 5px 10px;
+	height: 185px;
+	display: inline-block;
+	z-index: 3;
+	position: relative;
+	background: #fff;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	background-size: cover!important;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.hand .card:hover {
+	transform: scale(1.45);
+	box-shadow: 0px 0px 15px 0px rgba(0,0,0,0.5);
+	z-index: 4;
+}
