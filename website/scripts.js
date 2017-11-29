@@ -219,6 +219,7 @@ function createPlayer(supply){
 		buys: 1,
 		coins: 0,
 		trashCards: 0,
+		victoryPoints: 0,
 		deck: ["copper", "copper", "copper", "copper", "copper", "copper", "copper", "estate", "estate", "estate"],
 		hand: [],
 		playedCards: [],
@@ -308,7 +309,81 @@ function playCard (card, player) {
 		return true;
 	}
 	if (card.type === "action"){
+		var actionList = [];
+		actionList = card.action;
 
+		// A loop to find what actions the player gets
+		for (var i = 0; i < card.action.length; i++){
+			switch (card.action[i]){
+				case "+1 card":
+					draw(player, 1);
+					refreshHand(player);
+					break;
+				case "+2 cards":
+					draw(player, 2);
+					refreshHand(player);
+					break;
+				case "+3 cards":
+					draw(player, 3);
+					refreshHand(player);
+					break;
+				case "+4 cards":
+					draw(player, 4);
+					refreshHand(player);
+					break;
+				case "+1 action":
+					player.actions += 1;
+					refreshStats(player);
+					break;
+				case "+2 actions":
+					player.actions += 2;
+					refreshStats(player);
+					break;
+				case "+1 buy":
+					player.buys += 1;
+					refreshStats(player);
+					break;
+				case "+1 coin":
+					player.coins += 1;
+					refreshStats(player);
+					break;
+				case "+2 coins":
+					player.coins += 2;
+					refreshStats(player);
+					break;
+				case "trash 4 cards":
+					player.trashCards += 4;
+					console.log("Players trash cards increased by 4.");
+					break;
+				case "each other player draws a card":
+					console.log("Each other player draws a card.");
+					break;
+				case "+1 victory point per ten cards player has (round down)":
+					var totalCards = player.deck.length + player.hand.length + player.discardPile.length;
+					player.victoryPoints += Math.floor(totalCards / 10);
+					console.log("+1 Victory per then cards: \nTotalCards: " + totalCards + "." +
+															"\nVictory Points Added: " + Math.floor(totalCards / 10));
+					break;
+				case "+1 curse for each other player":
+					console.log("Each other player gains 1 curse point.");
+					break;
+				case "+1 card costing up to 4 coins":
+					player.buys += 4;
+					refreshStats(player);
+					break;
+				default:
+					
+			}
+		}
+		return true;
+	}
+	if (card.type === "victory"){
+		return false; // victory cards cannot be played
+	}
+	if (card.type === "curse"){
+		player.curse += card.points;
+		console.log("Player Curse points: " + player.curse);
+		return true;
 	}
 }
 
@@ -363,77 +438,77 @@ function getCard (card) {
 		case "market":
 			theCard.image = "url('assets/cards/200px-Market.jpg')";
 			theCard.type = "action";
-			theCard.action = "+1 card >> +1 action >> +1 buy >> +1 coin";
+			theCard.action = ["+1 card", "+1 action", "+1 buy", "+1 coin"];
 			theCard.cost = 5;
 			return theCard;
 			break;
 		case "chapel":
 			theCard.image = "url('assets/cards/200px-Chapel.jpg')";
 			theCard.type = "action";
-			theCard.action = "trash up to 4 cards from your hand";
+			theCard.action = ["trash 4 cards"];
 			theCard.cost = 2;
 			return theCard;
 			break;
 		case "council_room":
 			theCard.image = "url('assets/cards/200px-Council_Room.jpg')";
 			theCard.type = "action";
-			theCard.action = "+4 cards >> +1 buy << each other player draws a card";
+			theCard.action = ["+4 cards", "+1 buy", "each other player draws a card"];
 			theCard.cost = 5;
 			return theCard;
 			break;
 		case "festival":
 			theCard.image = "url('assets/cards/200px-Festival.jpg')";
 			theCard.type = "action";
-			theCard.action = "+2 actions >> +1 buy >> +2 coins";
+			theCard.action = ["+2 actions", "+1 buy", "+2 coins"];
 			theCard.cost = 5;
 			return theCard;
 			break;
 		case "gardens":
 			theCard.image = "url('assets/cards/200px-Gardens.jpg')";
-			theCard.type = "victory";
-			theCard.action = "+1 victory per ten cards you have (round down)";
+			theCard.type = "action";
+			theCard.action = ["+1 victory point per ten cards player has (round down)"];
 			theCard.cost = 4;
 			return theCard;
 			break;
 		case "laboratory":
 			theCard.image = "url('assets/cards/200px-Laboratory.jpg')";
 			theCard.type = "action";
-			theCard.action = "+2 cards >> +1 action";
+			theCard.action = ["+2 cards", "+1 action"];
 			theCard.cost = 5;
 			return theCard;
 			break;
 		case "smithy":
 			theCard.image = "url('assets/cards/200px-Smithy.jpg')";
 			theCard.type = "action";
-			theCard.action = "+3 cards";
+			theCard.action = ["+3 cards"];
 			theCard.cost = 4;
 			return theCard;
 			break;
 		case "village":
 			theCard.image = "url('assets/cards/200px-Village.jpg')";
 			theCard.type = "action";
-			theCard.action = "+1 card >> +2 actions";
+			theCard.action = ["+1 card", "+2 actions"];
 			theCard.cost = 3;
 			return theCard;
 			break;
 		case "witch":
 			theCard.image = "url('assets/cards/200px-Witch.jpg')";
 			theCard.type = "action";
-			theCard.action = "+2 cards >> Each other player gains a curse";
+			theCard.action = ["+2 cards", "+1 curse for each other player"];
 			theCard.cost = 4;
 			return theCard;
 			break;
 		case "woodcutter":
 			theCard.image = "url('assets/cards/200px-Woodcutter.jpg')";
 			theCard.type = "action";
-			theCard.action = "+1 buy >> +2 coins";
+			theCard.action = ["+1 buy", "+2 coins"];
 			theCard.cost = 3;
 			return theCard;
 			break;
 		case "workshop":
 			theCard.image = "url('assets/cards/200px-Workshop.jpg')";
 			theCard.type = "action";
-			theCard.action = "gain a card costing up to 4 coins";
+			theCard.action = ["+1 card costing up to 4 coins"];
 			theCard.cost = 3;
 			return theCard;
 			break;
