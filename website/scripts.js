@@ -440,14 +440,6 @@ function buyCard (card, player) {
 			
 }
 
-function hasSufficientCoin (player, card) {
-	var cardObj = getCard(card);
-	if (player.coins >= cardObj.cost)
-		return true;
-	else
-		return false;
-}
-
 function endTurn(player){
 	//reset cards
 	player.discardPile = player.discardPile.concat(player.hand, player.playedCards);	//discard hand and played cards
