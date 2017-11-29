@@ -79,72 +79,106 @@ $(document).ready(function(){
 
 	//Supply____
 	$("#estate").click(function() {
-		$("#estate").animate({opacity: '0.0'}, "fast");
-		$("#estate").animate({opacity: '1.0'});
+		if (buyCard ("estate", player)){
+			$("#estate").animate({opacity: '0.0'}, "fast");
+			$("#estate").animate({opacity: '1.0'});
+		}			
 	});
 	$("#duchy").click(function() {
-		$("#duchy").animate({opacity: '0.0'}, "fast");
-		$("#duchy").animate({opacity: '1.0'});
+		if (buyCard ("duchy", player)){
+			$("#duchy").animate({opacity: '0.0'}, "fast");
+			$("#duchy").animate({opacity: '1.0'});
+		}			
 	});
 	$("#kingdom0").click(function() {
-		$("#kingdom0").animate({opacity: '0.0'}, "fast");
-		$("#kingdom0").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[0], player)){
+			$("#kingdom0").animate({opacity: '0.0'}, "fast");
+			$("#kingdom0").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom1").click(function() {
-		$("#kingdom1").animate({opacity: '0.0'}, "fast");
-		$("#kingdom1").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[1], player)){
+			$("#kingdom1").animate({opacity: '0.0'}, "fast");
+			$("#kingdom1").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom2").click(function() {
-		$("#kingdom2").animate({opacity: '0.0'}, "fast");
-		$("#kingdom2").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[2], player)){
+			$("#kingdom2").animate({opacity: '0.0'}, "fast");
+			$("#kingdom2").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom3").click(function() {
-		$("#kingdom3").animate({opacity: '0.0'}, "fast");
-		$("#kingdom3").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[3], player)){
+			$("#kingdom3").animate({opacity: '0.0'}, "fast");
+			$("#kingdom3").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom4").click(function() {
-		$("#kingdom4").animate({opacity: '0.0'}, "fast");
-		$("#kingdom4").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[4], player)){
+			$("#kingdom4").animate({opacity: '0.0'}, "fast");
+			$("#kingdom4").animate({opacity: '1.0'});
+		}
 	});
 	$("#copper").click(function() {
-		$("#copper").animate({opacity: '0.0'}, "fast");
-		$("#copper").animate({opacity: '1.0'});
+		if (buyCard ("copper", player)){
+			$("#copper").animate({opacity: '0.0'}, "fast");
+			$("#copper").animate({opacity: '1.0'});
+		}			
 	});
 	$("#silver").click(function() {
-		$("#silver").animate({opacity: '0.0'}, "fast");
-		$("#silver").animate({opacity: '1.0'});
+		if (buyCard ("silver", player)){
+			$("#silver").animate({opacity: '0.0'}, "fast");
+			$("#silver").animate({opacity: '1.0'});
+		}	
 	});
 	$("#province").click(function() {
-		$("#province").animate({opacity: '0.0'}, "fast");
-		$("#province").animate({opacity: '1.0'});
+		if (buyCard ("province", player)){
+			$("#province").animate({opacity: '0.0'}, "fast");
+			$("#province").animate({opacity: '1.0'});
+		}	
 	});
 	$("#curse").click(function() {
-		$("#curse").animate({opacity: '0.0'}, "fast");
-		$("#curse").animate({opacity: '1.0'});
+		if (buyCard ("curse", player)){
+			$("#curse").animate({opacity: '0.0'}, "fast");
+			$("#curse").animate({opacity: '1.0'});
+		}	
 	});
 	$("#kingdom5").click(function() {
-		$("#kingdom5").animate({opacity: '0.0'}, "fast");
-		$("#kingdom5").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[5], player)){
+			$("#kingdom5").animate({opacity: '0.0'}, "fast");
+			$("#kingdom5").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom6").click(function() {
-		$("#kingdom6").animate({opacity: '0.0'}, "fast");
-		$("#kingdom6").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[6], player)){
+			$("#kingdom6").animate({opacity: '0.0'}, "fast");
+			$("#kingdom6").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom7").click(function() {
-		$("#kingdom7").animate({opacity: '0.0'}, "fast");
-		$("#kingdom7").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[7], player)){
+			$("#kingdom7").animate({opacity: '0.0'}, "fast");
+			$("#kingdom7").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom8").click(function() {
-		$("#kingdom8").animate({opacity: '0.0'}, "fast");
-		$("#kingdom8").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[8], player)){
+			$("#kingdom8").animate({opacity: '0.0'}, "fast");
+			$("#kingdom8").animate({opacity: '1.0'});
+		}
 	});
 	$("#kingdom9").click(function() {
-		$("#kingdom9").animate({opacity: '0.0'}, "fast");
-		$("#kingdom9").animate({opacity: '1.0'});
+		if (buyCard (supply.kingdomCards[9], player)){
+			$("#kingdom9").animate({opacity: '0.0'}, "fast");
+			$("#kingdom9").animate({opacity: '1.0'});
+		}
 	});
 	$("#gold").click(function() {
-		$("#gold").animate({opacity: '0.0'}, "fast");
-		$("#gold").animate({opacity: '1.0'});
+		if (buyCard ("gold", player)){
+			$("#gold").animate({opacity: '0.0'}, "fast");
+			$("#gold").animate({opacity: '1.0'});
+		}
 	});
 }); 
 
@@ -220,6 +254,7 @@ function createPlayer(supply){
 		coins: 0,
 		trashCards: 0,
 		victoryPoints: 0,
+		curse: 0,
 		deck: ["copper", "copper", "copper", "copper", "copper", "copper", "copper", "estate", "estate", "estate"],
 		hand: [],
 		playedCards: [],
@@ -378,6 +413,7 @@ function playCard (card, player) {
 		return true;
 	}
 	if (card.type === "victory"){
+		alert("Victory Cards Cannot be Played.")
 		return false; // victory cards cannot be played
 	}
 	if (card.type === "curse"){
@@ -388,7 +424,28 @@ function playCard (card, player) {
 }
 
 function buyCard (card, player) {
+	var cardObj = getCard(card);
 
+		if (player.coins >= cardObj.cost) {
+			player.coins -= cardObj.cost;
+			player.discardPile.push(card);
+			supplyCount.estate--;
+			refreshStats(player);
+			return true;
+		}
+		else{
+			alert("Insufficient Coin!");
+			return false;
+		}
+			
+}
+
+function hasSufficientCoin (player, card) {
+	var cardObj = getCard(card);
+	if (player.coins >= cardObj.cost)
+		return true;
+	else
+		return false;
 }
 
 function endTurn(player){
@@ -402,7 +459,15 @@ function endTurn(player){
 	player.actions = 1;												
 	player.buys = 1;
 	player.coins = 0;
+
+	refreshHand(player);
+	refreshStats(player);
 	
+	// Draw played cards back to screen
+	for (i = 0; i < 5; i++){
+		handNum = "#hand" + i;
+		$(handNum).fadeIn("fast");
+	}
 //	console.log("deck: " + player.deck);
 //	console.log("hand: " + player.hand);
 //	console.log("discard: " + player.discardPile);
