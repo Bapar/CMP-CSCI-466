@@ -21,9 +21,9 @@ $(document).ready(function(){
 		cardPlayable = playCard(card, player);
 		
 		if (cardPlayable) {
-			player.playedCards.push(player.hand[0]);
-			cardsPlayed.push(0);
 			$("#hand0").fadeOut("fast");
+			player.discardPile.push(player.hand[0]);
+			cardsPlayed.push(0);			
 		}
 		
 		
@@ -33,9 +33,9 @@ $(document).ready(function(){
 		cardPlayable = playCard(card, player);
 		
 		if (cardPlayable) {
-			player.playedCards.push(player.hand[1]);
-			cardsPlayed.push(1);
 			$("#hand1").fadeOut("fast");
+			player.discardPile.push(player.hand[1]);
+			cardsPlayed.push(1);
 		}
 		
 		
@@ -45,9 +45,9 @@ $(document).ready(function(){
 		cardPlayable = playCard(card, player);
 		
 		if (cardPlayable) {
-			player.playedCards.push(player.hand[2]);
-			cardsPlayed.push(2);
 			$("#hand2").fadeOut("fast");
+			player.discardPile.push(player.hand[2]);
+			cardsPlayed.push(2);
 		}
 		
 		
@@ -57,9 +57,9 @@ $(document).ready(function(){
 		cardPlayable = playCard(card, player);
 		
 		if (cardPlayable) {
-			player.playedCards.push(player.hand[3]);
-			cardsPlayed.push(3);
 			$("#hand3").fadeOut("fast");
+			player.discardPile.push(player.hand[3]);
+			cardsPlayed.push(3);
 		}
 		
 		
@@ -69,9 +69,9 @@ $(document).ready(function(){
 		cardPlayable = playCard(card, player);
 		
 		if (cardPlayable) {
-			player.playedCards.push(player.hand[4]);
-			cardsPlayed.push(4);
 			$("#hand4").fadeOut("fast");
+			player.discardPile.push(player.hand[4]);
+			cardsPlayed.push(4);			
 		}
 		
 		
@@ -295,6 +295,14 @@ function refreshHand(player) {
 	}
 }
 
+// Draw played cards back to screen
+function showHiddenCards(player) {
+	for (i = 0; i < 5; i++){
+		handNum = "#hand" + i;
+		$(handNum).fadeIn("fast");
+	}
+}
+
 // Refresh the players stats on screen
 function refreshStats(player) {
 	document.getElementById("actionCount").innerHTML = player.actions;
@@ -343,9 +351,10 @@ function playCard (card, player) {
 		refreshStats(player);
 		return true;
 	}
-	if (card.type === "action"){
+	if (card.type === "action" && player.actions > 0){
 		var actionList = [];
 		actionList = card.action;
+		player.actions--;
 
 		// A loop to find what actions the player gets
 		for (var i = 0; i < card.action.length; i++){
@@ -353,18 +362,22 @@ function playCard (card, player) {
 				case "+1 card":
 					draw(player, 1);
 					refreshHand(player);
+					showHiddenCards(player);
 					break;
 				case "+2 cards":
 					draw(player, 2);
 					refreshHand(player);
+					showHiddenCards(player);
 					break;
 				case "+3 cards":
 					draw(player, 3);
 					refreshHand(player);
+					showHiddenCards(player);
 					break;
 				case "+4 cards":
 					draw(player, 4);
 					refreshHand(player);
+					showHiddenCards(player);
 					break;
 				case "+1 action":
 					player.actions += 1;
@@ -412,10 +425,15 @@ function playCard (card, player) {
 		}
 		return true;
 	}
+	else if (player.actions === 0) {
+		alert ("Insufficient Actions!");
+	}
+
 	if (card.type === "victory"){
 		alert("Victory Cards Cannot be Played.")
 		return false; // victory cards cannot be played
 	}
+
 	if (card.type === "curse"){
 		player.curse += card.points;
 		console.log("Player Curse points: " + player.curse);
@@ -426,14 +444,18 @@ function playCard (card, player) {
 function buyCard (card, player) {
 	var cardObj = getCard(card);
 
-		if (player.coins >= cardObj.cost) {
+		if (player.coins >= cardObj.cost && player.buys > 0) {
 			player.coins -= cardObj.cost;
+			player.buys--;
 			player.discardPile.push(card);
 			supplyCount.estate--;
 			refreshStats(player);
 			return true;
 		}
-		else{
+		else if (player.buys === 0) {
+			alert("Insufficient Buy Points!");
+		}
+		else if (player.coins < cardObj.cost){
 			alert("Insufficient Coin!");
 			return false;
 		}
@@ -454,12 +476,8 @@ function endTurn(player){
 
 	refreshHand(player);
 	refreshStats(player);
-	
-	// Draw played cards back to screen
-	for (i = 0; i < 5; i++){
-		handNum = "#hand" + i;
-		$(handNum).fadeIn("fast");
-	}
+		
+	showHiddenCards(player);
 //	console.log("deck: " + player.deck);
 //	console.log("hand: " + player.hand);
 //	console.log("discard: " + player.discardPile);
