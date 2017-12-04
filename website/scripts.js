@@ -18,63 +18,28 @@ $(document).ready(function(){
 	// Hand____
 	$("#hand0").click(function() {
 		card = getCard(player.hand[0]);
-		cardPlayable = playCard(card, player);
-		
-		if (cardPlayable) {
-			$("#hand0").fadeOut("fast");
-			player.discardPile.push(player.hand[0]);
-			cardsPlayed.push(0);			
-		}
-		
-		
+		playCard(card, player, 0);
+		refreshHand(player);				
 	});
 	$("#hand1").click(function() {
 		card = getCard(player.hand[1]);
-		cardPlayable = playCard(card, player);
-		
-		if (cardPlayable) {
-			$("#hand1").fadeOut("fast");
-			player.discardPile.push(player.hand[1]);
-			cardsPlayed.push(1);
-		}
-		
-		
+		playCard(card, player, 1);
+		refreshHand(player);
 	});
 	$("#hand2").click(function() {
 		card = getCard(player.hand[2]);
-		cardPlayable = playCard(card, player);
-		
-		if (cardPlayable) {
-			$("#hand2").fadeOut("fast");
-			player.discardPile.push(player.hand[2]);
-			cardsPlayed.push(2);
-		}
-		
-		
+		playCard(card, player, 2);
+		refreshHand(player);
 	});
 	$("#hand3").click(function() {
 		card = getCard(player.hand[3]);
-		cardPlayable = playCard(card, player);
-		
-		if (cardPlayable) {
-			$("#hand3").fadeOut("fast");
-			player.discardPile.push(player.hand[3]);
-			cardsPlayed.push(3);
-		}
-		
-		
+		playCard(card, player, 3);
+		refreshHand(player);
 	});
 	$("#hand4").click(function() {
 		card = getCard(player.hand[4]);
-		cardPlayable = playCard(card, player);
-		
-		if (cardPlayable) {
-			$("#hand4").fadeOut("fast");
-			player.discardPile.push(player.hand[4]);
-			cardsPlayed.push(4);			
-		}
-		
-		
+		playCard(card, player, 4);
+		refreshHand(player);
 	});
 
 	//Supply____
@@ -287,19 +252,31 @@ function refreshSupply() {
 function refreshHand(player) {
 	var handNum = "";
 	var currentCard = {};
-	
+
+	// remove cards from screen first
 	for (i = 0; i < 5; i++){
+		handNum = "#hand" + i;
+		$(handNum).fadeOut("fast");
+	}
+	
+	// Then draw the updated hand to screen
+	for (i = 0; i < player.hand.length; i++){
 		handNum = "hand" + i;
 		currentCard = getCard(player.hand[i]);
 		document.getElementById(handNum).style.backgroundImage = currentCard.image;
 	}
+
+	showHiddenCards(player);
 }
 
 // Draw played cards back to screen
 function showHiddenCards(player) {
 	for (i = 0; i < 5; i++){
-		handNum = "#hand" + i;
-		$(handNum).fadeIn("fast");
+		if (player.hand[i] !== undefined){
+			handNum = "#hand" + i;
+			$(handNum).fadeIn("fast");
+			console.log("Player Hand " + player.hand[i]);
+		}		
 	}
 }
 
@@ -339,106 +316,123 @@ function draw(player, count){
 			shuffle(player.deck);
 		}
 		//move a card from deck to hand
-		player.hand.push(player.deck.pop());
+		if (player.hand.length < 5)
+			player.hand.push(player.deck.pop());
 	}
 	//console.log(player.hand);
 	return player;
 }
 
-function playCard (card, player) {
+function playCard (card, player, index) {
+	var cardPlayable = false;
 	if (card.type === "coin") {
+		moveToDiscard(player, index);
 		player.coins += card.points;
 		refreshStats(player);
-		return true;
+		cardPlayable = true;
 	}
-	if (card.type === "action" && player.actions > 0){
-		var actionList = [];
-		actionList = card.action;
-		player.actions--;
+	if (card.type === "action"){	
+		if (player.actions > 0){
+			var actionList = [];
+			actionList = card.action;
+			player.actions--;
+			refreshStats(player);
+			moveToDiscard(player, index);
+			// A loop to find what actions the player gets
+			for (var i = 0; i < card.action.length; i++){
+				switch (card.action[i]){
+					case "+1 card":
+						draw(player, 1);
+						refreshHand(player);
+						showHiddenCards(player);
+						break;
+					case "+2 cards":
+						draw(player, 2);
+						refreshHand(player);
+						showHiddenCards(player);
+						break;
+					case "+3 cards":
+						draw(player, 3);
+						refreshHand(player);
+						showHiddenCards(player);
+						break;
+					case "+4 cards":
+						draw(player, 4);
+						refreshHand(player);
+						showHiddenCards(player);
+						break;
+					case "+1 action":
+						player.actions += 1;
+						refreshStats(player);
+						break;
+					case "+2 actions":
+						player.actions += 2;
+						refreshStats(player);
+						break;
+					case "+1 buy":
+						player.buys += 1;
+						refreshStats(player);
+						break;
+					case "+1 coin":
+						player.coins += 1;
+						refreshStats(player);
+						break;
+					case "+2 coins":
+						player.coins += 2;
+						refreshStats(player);
+						break;
+					case "trash 4 cards":
+						player.trashCards += 4;
+						console.log("Players trash cards increased by 4.");
+						break;
+					case "each other player draws a card":
+						console.log("Each other player draws a card.");
+						break;
+					case "+1 victory point per ten cards player has (round down)":
+						var totalCards = player.deck.length + player.hand.length + player.discardPile.length;
+						player.victoryPoints += Math.floor(totalCards / 10);
+						console.log("+1 Victory per then cards: \nTotalCards: " + totalCards + "." +
+																"\nVictory Points Added: " + Math.floor(totalCards / 10));
+						break;
+					case "+1 curse for each other player":
+						console.log("Each other player gains 1 curse point.");
+						break;
+					case "+1 card costing up to 4 coins":
+						player.buys += 4;
+						refreshStats(player);
+						break;
+					default:
 
-		// A loop to find what actions the player gets
-		for (var i = 0; i < card.action.length; i++){
-			switch (card.action[i]){
-				case "+1 card":
-					draw(player, 1);
-					refreshHand(player);
-					showHiddenCards(player);
-					break;
-				case "+2 cards":
-					draw(player, 2);
-					refreshHand(player);
-					showHiddenCards(player);
-					break;
-				case "+3 cards":
-					draw(player, 3);
-					refreshHand(player);
-					showHiddenCards(player);
-					break;
-				case "+4 cards":
-					draw(player, 4);
-					refreshHand(player);
-					showHiddenCards(player);
-					break;
-				case "+1 action":
-					player.actions += 1;
-					refreshStats(player);
-					break;
-				case "+2 actions":
-					player.actions += 2;
-					refreshStats(player);
-					break;
-				case "+1 buy":
-					player.buys += 1;
-					refreshStats(player);
-					break;
-				case "+1 coin":
-					player.coins += 1;
-					refreshStats(player);
-					break;
-				case "+2 coins":
-					player.coins += 2;
-					refreshStats(player);
-					break;
-				case "trash 4 cards":
-					player.trashCards += 4;
-					console.log("Players trash cards increased by 4.");
-					break;
-				case "each other player draws a card":
-					console.log("Each other player draws a card.");
-					break;
-				case "+1 victory point per ten cards player has (round down)":
-					var totalCards = player.deck.length + player.hand.length + player.discardPile.length;
-					player.victoryPoints += Math.floor(totalCards / 10);
-					console.log("+1 Victory per then cards: \nTotalCards: " + totalCards + "." +
-															"\nVictory Points Added: " + Math.floor(totalCards / 10));
-					break;
-				case "+1 curse for each other player":
-					console.log("Each other player gains 1 curse point.");
-					break;
-				case "+1 card costing up to 4 coins":
-					player.buys += 4;
-					refreshStats(player);
-					break;
-				default:
-					
+				}
 			}
 		}
-		return true;
+		else
+			alert ("Insufficient Actions!");
 	}
-	else if (player.actions === 0) {
-		alert ("Insufficient Actions!");
-	}
-
+	
 	if (card.type === "victory"){
 		alert("Victory Cards Cannot be Played.")
-		return false; // victory cards cannot be played
+		// victory cards cannot be played
 	}
 
 	if (card.type === "curse"){
+		moveToDiscard(player, index);
 		player.curse += card.points;
 		console.log("Player Curse points: " + player.curse);
-		return true;
+		cardPlayable = true;
 	}
+}
+
+function moveToDiscard (player, index){
+		handNum = "#hand" + index;
+		$(handNum).fadeOut("fast");
+		player.discardPile.push(player.hand[index]);
+		player.hand.splice(index, 1);
+		//cardsPlayed.push(index);
+
+		console.log("Player Hand: \n")
+		for (var i = 0; i < player.hand.length; i++) 
+			console.log(player.hand[i] + "\n");
 }
 
 function buyCard (card, player) {
@@ -448,7 +442,7 @@ function buyCard (card, player) {
 			player.coins -= cardObj.cost;
 			player.buys--;
 			player.discardPile.push(card);
-			supplyCount.estate--;
+			//supplyCount.estate--;
 			refreshStats(player);
 			return true;
 		}
