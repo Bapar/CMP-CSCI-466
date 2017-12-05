@@ -47,102 +47,119 @@ $(document).ready(function(){
 		if (buyCard ("estate", player)){
 			$("#estate").animate({opacity: '0.0'}, "fast");
 			$("#estate").animate({opacity: '1.0'});
+			supplyCount.estate--;
 		}			
 	});
 	$("#duchy").click(function() {
 		if (buyCard ("duchy", player)){
 			$("#duchy").animate({opacity: '0.0'}, "fast");
 			$("#duchy").animate({opacity: '1.0'});
+			supplyCount.duchy--;
 		}			
 	});
 	$("#kingdom0").click(function() {
 		if (buyCard (supply.kingdomCards[0], player)){
 			$("#kingdom0").animate({opacity: '0.0'}, "fast");
 			$("#kingdom0").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[0]--;
 		}
 	});
 	$("#kingdom1").click(function() {
 		if (buyCard (supply.kingdomCards[1], player)){
 			$("#kingdom1").animate({opacity: '0.0'}, "fast");
 			$("#kingdom1").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[1]--;
 		}
 	});
 	$("#kingdom2").click(function() {
 		if (buyCard (supply.kingdomCards[2], player)){
 			$("#kingdom2").animate({opacity: '0.0'}, "fast");
 			$("#kingdom2").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[2]--;
 		}
 	});
 	$("#kingdom3").click(function() {
 		if (buyCard (supply.kingdomCards[3], player)){
 			$("#kingdom3").animate({opacity: '0.0'}, "fast");
 			$("#kingdom3").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[3]--;
 		}
 	});
 	$("#kingdom4").click(function() {
 		if (buyCard (supply.kingdomCards[4], player)){
 			$("#kingdom4").animate({opacity: '0.0'}, "fast");
 			$("#kingdom4").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[4]--;
 		}
 	});
 	$("#copper").click(function() {
 		if (buyCard ("copper", player)){
 			$("#copper").animate({opacity: '0.0'}, "fast");
 			$("#copper").animate({opacity: '1.0'});
+			supplyCount.copper--;
 		}			
 	});
 	$("#silver").click(function() {
 		if (buyCard ("silver", player)){
 			$("#silver").animate({opacity: '0.0'}, "fast");
 			$("#silver").animate({opacity: '1.0'});
+			supplyCount.silver--;
 		}	
 	});
 	$("#province").click(function() {
 		if (buyCard ("province", player)){
 			$("#province").animate({opacity: '0.0'}, "fast");
 			$("#province").animate({opacity: '1.0'});
+			supplyCount.province--;
 		}	
 	});
 	$("#curse").click(function() {
 		if (buyCard ("curse", player)){
 			$("#curse").animate({opacity: '0.0'}, "fast");
 			$("#curse").animate({opacity: '1.0'});
+			supplyCount.curse--;
 		}	
 	});
 	$("#kingdom5").click(function() {
 		if (buyCard (supply.kingdomCards[5], player)){
 			$("#kingdom5").animate({opacity: '0.0'}, "fast");
 			$("#kingdom5").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[5]--;
 		}
 	});
 	$("#kingdom6").click(function() {
 		if (buyCard (supply.kingdomCards[6], player)){
 			$("#kingdom6").animate({opacity: '0.0'}, "fast");
 			$("#kingdom6").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[6]--;
 		}
 	});
 	$("#kingdom7").click(function() {
 		if (buyCard (supply.kingdomCards[7], player)){
 			$("#kingdom7").animate({opacity: '0.0'}, "fast");
 			$("#kingdom7").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[7]--;
 		}
 	});
 	$("#kingdom8").click(function() {
 		if (buyCard (supply.kingdomCards[8], player)){
 			$("#kingdom8").animate({opacity: '0.0'}, "fast");
 			$("#kingdom8").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[8]--;
 		}
 	});
 	$("#kingdom9").click(function() {
 		if (buyCard (supply.kingdomCards[9], player)){
 			$("#kingdom9").animate({opacity: '0.0'}, "fast");
 			$("#kingdom9").animate({opacity: '1.0'});
+			supplyCount.kingdomCards[9]--;
 		}
 	});
 	$("#gold").click(function() {
 		if (buyCard ("gold", player)){
 			$("#gold").animate({opacity: '0.0'}, "fast");
 			$("#gold").animate({opacity: '1.0'});
+			supplyCount.gold--;
 		}
 	});
 }); 
@@ -398,7 +415,7 @@ function playCard (card, player, index) {
 						console.log("Each other player gains 1 curse point.");
 						break;
 					case "+1 card costing up to 4 coins":
-						player.buys += 4;
+						player.coins += 4;
 						refreshStats(player);
 						break;
 					default:
@@ -442,7 +459,6 @@ function buyCard (card, player) {
 			player.coins -= cardObj.cost;
 			player.buys--;
 			player.discardPile.push(card);
-			//supplyCount.estate--;
 			refreshStats(player);
 			return true;
 		}
