@@ -3,7 +3,25 @@
 // debugged by: Mathew Griffin, Brent Parker, and Carlos Perez
 jQuery(function ($) {
 
-	
+	gameStart = new TimelineMax();
+    gameStart.to('.title', 0, {opacity:1, scale:1.35}, 0)
+    		 .to('.background', 0.5, {opacity:0.35}, 0.5)
+             .staggerFrom('.title h1', 0.35, {opacity:0, yPercent:-15}, 0, 0.75)
+             .staggerFrom('.title h6', 0.35, {opacity:0, yPercent:8}, 0, 0.75)
+             .to('.instructions', 0.35, {opacity:1, yPercent:-2}, 1.2, 1.2)
+    gameStart.play();
+
+    $(".startGame").click(function() {
+    	initGame = new TimelineMax();
+    	initGame.to('.instructions', 0.25, {opacity:0, yPercent:2}, 0.2, 0.2)
+    			.to('.title', 0.65, {css:{top: 10, scale:1}}, 0.55, 0.55)
+    			.to('#game-holder', 0.25, {css:{visibility:'visible', opacity:1}}, 0.9, 0.9)
+    			.staggerFrom('.supply .card', 0.3, {css:{left:-5, opacity:0}}, 0.05, 1.25)
+    			.staggerFrom('.action', 0.3, {css:{opacity:0}}, 0, 2.2)
+    			.staggerFrom('.hand .card', 0.3, {css:{left:-5, opacity:0}}, 0.05, 2.85)
+		initGame.play();
+		return false;
+	});
 
 });
 
