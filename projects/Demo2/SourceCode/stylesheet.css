@@ -1,3 +1,7 @@
+/* written by: Mathew Griffin, Brent Parker, and Carlos Perez
+// tested by: Mathew Griffin, Brent Parker, and Carlos Perez
+// debugged by: Mathew Griffin, Brent Parker, and Carlos Perez */
+
 html, body {
 	margin: 0;
 	min-height: 100vh;
@@ -5,6 +9,7 @@ html, body {
 	position: relative;
 	font-family: 'Roboto', sans-serif;
 	background: #000;
+	overflow-x: hidden;
 }
 
 a {
@@ -22,7 +27,7 @@ a {
 	background-size: cover;
 	background-position: top center;
 	background-repeat: no-repeat;
-	opacity: 0.35;
+	opacity: 0;
 }
 
 #game {
@@ -36,12 +41,50 @@ a {
 	position: relative;
 }
 
+/* instructions */
+.instructions {
+	text-align: center;
+	position: relative;
+	top: 225px;
+	opacity: 0;
+}
+.instructions .container {
+	padding: 0 50px;
+}
+.instructions .container p {
+	color: #fff;
+	font-size: 23px;
+	line-height: 150%;
+}
+.instructions .btn {
+	margin-top: 20px;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	color: #fff;
+	border-radius: 10px;
+	text-align: center;
+	min-width: 190px;
+	border: 2px solid #fff;
+	display: inline-block;
+	padding: 12px 10px;
+	transition: all 0.2s ease;
+	line-height: 150%;
+}
+
+.instructions .btn:hover {
+	background: #780116;
+	border: 2px solid #780116;
+	color: #fff;
+}
 
 /* TITLE */
 .title{
 	padding: 15px 0;
 	position: relative;
 	margin-bottom: 25px;
+	opacity: 0;
+	top: 200px;
 }
 .title .title-container {
 	margin: 0 auto;
@@ -101,7 +144,10 @@ a {
 /* GAME */
 #game-holder {
 	width: 100%;
-	position: relative;
+	position: absolute;
+	top: 125px;
+	opacity: 0;
+	visibility: hidden;
 }
 
 .supply {

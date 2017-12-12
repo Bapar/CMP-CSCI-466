@@ -1,6 +1,8 @@
 // written by: Mathew Griffin, Brent Parker, and Carlos Perez
 // tested by: Mathew Griffin, Brent Parker, and Carlos Perez
 // debugged by: Mathew Griffin, Brent Parker, and Carlos Perez
+
+
 jQuery(function ($) {
 
 	gameStart = new TimelineMax();

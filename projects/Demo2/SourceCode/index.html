@@ -1,13 +1,9 @@
+<!-- written by: Mathew Griffin, Brent Parker, and Carlos Perez-->
+<!-- tested by: Mathew Griffin, Brent Parker, and Carlos Perez-->
+<!-- debugged by: Mathew Griffin, Brent Parker, and Carlos Perez-->
+
 <!DOCTYPE html>
 <html>
-<!--Jasmine
-<link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-{#.#.#}/jasmine_favicon.png">
-<link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-{#.#.#}/jasmine.css">
-
-<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/jasmine.js"></script>
-<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/jasmine-html.js"></script>
-<script type="text/javascript" src="jasmine/lib/jasmine-{#.#.#}/boot.js"></script>-->
-
 	<head>
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,18 +18,23 @@
 		<div id="game">
 			<div class="title">
 				<div class="container">
-					<a href="#" class="btn left">New Game</a>
 					<div class="title-container">
 						<h1>Dominion</h1>
 						<h6>The Card Game</h6>
 					</div>
-					<a href="#" class="btn right">High Scores</a>
+				</div>
+			</div>
+
+			<div class="instructions">
+				<div class="container">
+					<p>You are just a monarch, and like your parents before you, a ruler of a small pleasant kingdom. Unlike your parents, you have many hopes and dreams! You want a bigger and more pleasant kingdom, with more rivers, markets, and a wider variety of trees. <br/ >You want a Dominion!</p>
+					<p>During a turn, you get five cards and reveal treasure from your hand to purchase any card on the table. Whether you buy an action card, more treasure, or a victory card, your new card is placed into the discard pile, along with every card you had drawn that turn.</p>
+					<p><a href="#" class="btn startGame">Start Game</a></p>
 				</div>
 			</div>
 
 			<main id="game-holder">
 				<div class="container">
-					
 					<div class="supply">
 						<div class="supply-background"></div>
 						<div class="card" id = "estate" style="background-image: url('assets/cards/200px-Estate.jpg');" data-value="100"></div>
@@ -87,12 +88,14 @@
 						<div class="card" id = "hand3" data-value="100"></div>
 						<div class="card" id = "hand4" data-value="100"></div>
 				</div>
-
 				</div>
 			</main>
 		</div>
 
 		<script type='text/javascript' src='assets/js/jquery-3.2.1.min.js'></script>
+		<script type='text/javascript' src='assets/js/TweenMax.min.js'></script>
+		<script type='text/javascript' src='assets/js/animation.gsap.min.js'></script>
+		<script type='text/javascript' src='assets/js/debug.addIndicators.min.js'></script>
 		<script type='text/javascript' src='scripts.js'></script>
 	</body>
 </html>
